@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING
   }, {
-    engine: 'MYISAM', 
+    engine: 'MYISAM',
+    freezeTableName: true,
+    tableName: 'category',
     indexes: [
       {
         name: 'idx_category_department_id',

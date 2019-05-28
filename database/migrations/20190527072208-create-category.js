@@ -25,10 +25,12 @@ module.exports = {
       }
     }, { engine: 'MYISAM'})
     .then(() => {
-      queryInterface.addIndex('Category',['department_id'], { 
-        indexName: 'idx_category_department_id',
-        indexType: 'BTREE'
-      })
+      return queryInterface.addIndex('category',
+          ['department_id'], 
+          { 
+            indexName: 'idx_category_department_id',
+            indexType: 'BTREE'
+          })
    })
   },
   
