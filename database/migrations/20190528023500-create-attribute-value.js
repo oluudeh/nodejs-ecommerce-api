@@ -21,8 +21,7 @@ module.exports = {
       return queryInterface.addIndex('attribute_value',
         ['attribute_id'], 
         { 
-          indexName: 'idx_attribute_value_attribute_id',
-          indexType: 'BTREE'
+          name: 'idx_attribute_value_attribute_id'
         })
     });
   },

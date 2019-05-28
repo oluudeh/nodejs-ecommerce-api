@@ -28,8 +28,7 @@ module.exports = {
       return queryInterface.addIndex('category',
           ['department_id'], 
           { 
-            indexName: 'idx_category_department_id',
-            indexType: 'BTREE'
+            name: 'idx_category_department_id',
           })
    })
   },

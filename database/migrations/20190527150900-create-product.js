@@ -44,8 +44,8 @@ module.exports = {
       queryInterface.addIndex('product',
       ['name', 'description'], 
       {
-        indicesType: 'FULLTEXT',
-        indexName: 'idx_ft_product_name_description'
+        type: 'FULLTEXT',
+        name: 'idx_ft_product_name_description'
       })
     });
   },
