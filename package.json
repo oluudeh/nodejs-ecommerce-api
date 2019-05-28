@@ -6,7 +6,16 @@
   "scripts": {
     "start:dev": "nodemon ./bin/www",
     "test": "mocha --timeout 10000",
-    "test:attributes": "mocha ./test/attributes.js --timeout 10000"
+    "test:attributes": "mocha ./test/attributes.js --timeout 10000",
+    "test:categories": "mocha ./test/categories.js --timeout 10000",
+    "test:customers": "mocha ./test/customers.js --timeout 10000",
+    "test:departments": "mocha ./test/departments.js --timeout 10000",
+    "test:orders": "mocha ./test/orders.js --timeout 10000",
+    "test:products": "mocha ./test/products.js --timeout 10000",
+    "test:shipping": "mocha ./test/shipping.js --timeout 10000",
+    "test:shopping_cart": "mocha ./test/shopping_cart.js --timeout 10000",
+    "test:stripe": "mocha ./test/stripe.js --timeout 10000",
+    "test:taxes": "mocha ./test/taxes.js --timeout 10000"
   },
   "keywords": [],
   "author": "",
