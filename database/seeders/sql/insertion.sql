@@ -1,17 +1,12 @@
-const fs = require('fs')
-const path = require('path')
 
-'use strict';
-
-const SQL = `
--- --
-INSERT INTO department (department_id, name, description) VALUES
+-- Populate department table
+INSERT INTO `department` (`department_id`, `name`, `description`) VALUES
        (1, 'Regional', 'Proud of your country? Wear a T-shirt with a national symbol stamp!'),
        (2, 'Nature', 'Find beautiful T-shirts with animals and flowers in our Nature department!'),
        (3, 'Seasonal', 'Each time of the year has a special flavor. Our seasonal T-shirts express traditional symbols using unique postal stamp pictures.');
 
--- --
-INSERT INTO category (category_id, department_id, name, description) VALUES
+-- Populate category table
+INSERT INTO `category` (`category_id`, `department_id`, `name`, `description`) VALUES
        (1, 1, 'French', 'The French have always had an eye for beauty. One look at the T-shirts below and you''ll see that same appreciation has been applied abundantly to their postage stamps. Below are some of our most beautiful and colorful T-shirts, so browse away! And don''t forget to go all the way to the bottom - you don''t want to miss any of them!'),
        (2, 1, 'Italian', 'The full and resplendent treasure chest of art, literature, music, and science that Italy has given the world is reflected splendidly in its postal stamps. If we could, we would dedicate hundreds of T-shirts to this amazing treasure of beautiful images, but for now we will have to live with what you see here. You don''t have to be Italian to love these gorgeous T-shirts, just someone who appreciates the finer things in life!'),
        (3, 1, 'Irish', 'It was Churchill who remarked that he thought the Irish most curious because they didn''t want to be English. How right he was! But then, he was half-American, wasn''t he? If you have an Irish genealogy you will want these T-shirts! If you suddenly turn Irish on St. Patrick''s Day, you too will want these T-shirts! Take a look at some of the coolest T-shirts we have!'),
@@ -20,8 +15,8 @@ INSERT INTO category (category_id, department_id, name, description) VALUES
        (6, 3, 'Christmas', ' Because this is a unique Christmas T-shirt that you''ll only wear a few times a year, it will probably last for decades (unless some grinch nabs it from you, of course). Far into the future, after you''re gone, your grandkids will pull it out and argue over who gets to wear it. What great snapshots they''ll make dressed in Grandpa or Grandma''s incredibly tasteful and unique Christmas T-shirt! Yes, everyone will remember you forever and what a silly goof you were when you would wear only your Santa beard and cap so you wouldn''t cover up your nifty T-shirt.'),
        (7, 3, 'Valentine''s', 'For the more timid, all you have to do is wear your heartfelt message to get it across. Buy one for you and your sweetie(s) today!');
 
--- --
-INSERT INTO product (product_id, name, description, price, discounted_price, image, image_2, thumbnail, display) VALUES
+-- Populate product table
+INSERT INTO `product` (`product_id`, `name`, `description`, `price`, `discounted_price`, `image`, `image_2`, `thumbnail`, `display`) VALUES
        (1, 'Arc d''Triomphe', 'This beautiful and iconic T-shirt will no doubt lead you to your own triumph.', 14.99, 0.00, 'arc-d-triomphe.gif', 'arc-d-triomphe-2.gif', 'arc-d-triomphe-thumbnail.gif', 0),
        (2, 'Chartres Cathedral', '"The Fur Merchants". Not all the beautiful stained glass in the great cathedrals depicts saints and angels! Lay aside your furs for the summer and wear this beautiful T-shirt!', 16.95, 15.95, 'chartres-cathedral.gif', 'chartres-cathedral-2.gif', 'chartres-cathedral-thumbnail.gif', 2),
        (3, 'Coat of Arms', 'There''s good reason why the ship plays a prominent part on this shield!', 14.50, 0.00, 'coat-of-arms.gif', 'coat-of-arms-2.gif', 'coat-of-arms-thumbnail.gif', 0),
@@ -107,7 +102,7 @@ INSERT INTO product (product_id, name, description, price, discounted_price, ima
        (83, 'Weather Vane', 'This weather vane dates from the 1830''s and is still showing which way the wind blows! Trumpet your arrival with this unique Christmas T-shirt.', 15.95, 14.99, 'weather-vane.gif', 'weather-vane-2.gif', 'weather-vane-thumbnail.gif', 2),
        (84, 'Mistletoe', 'This well-known parasite and killer of trees was revered by the Druids, who would go out and gather it with great ceremony. Youths would go about with it to announce the new year. Eventually more engaging customs were attached to the strange plant, and we''re here to see that they continue with these cool Christmas T-shirts.', 19.00, 17.99, 'mistletoe.gif', 'mistletoe-2.gif', 'mistletoe-thumbnail.gif', 3),
        (85, 'Altar Piece', 'This beautiful angel Christmas T-shirt is awaiting the opportunity to adorn your chest!', 20.50, 18.50, 'altar-piece.gif', 'altar-piece-2.gif', 'altar-piece-thumbnail.gif', 2),
-       (86, 'The Three Wise Men', 'This is a classic rendition of one of the season''s most beloved stories, and now showing on a Christmas T-shirt for you!', 12.99, 0.00, 'the-three-wise-men.gif', 'the-three-wise-men-2.gif', 'the-three-wise-men-thumbnail.gif', 0),
+       (86, 'The Three Wise Men', 'This is a classic rendition of one of the season�s most beloved stories, and now showing on a Christmas T-shirt for you!', 12.99, 0.00, 'the-three-wise-men.gif', 'the-three-wise-men-2.gif', 'the-three-wise-men-thumbnail.gif', 0),
        (87, 'Christmas Tree', 'Can you get more warm and folksy than this classic Christmas T-shirt?', 20.00, 17.95, 'christmas-tree.gif', 'christmas-tree-2.gif', 'christmas-tree-thumbnail.gif', 2),
        (88, 'Madonna & Child', 'This exquisite image was painted by Filipino Lippi, a 15th century Italian artist. I think he would approve of it on a Going Postal Christmas T-shirt!', 21.95, 18.50, 'madonna-child.gif', 'madonna-child-2.gif', 'madonna-child-thumbnail.gif', 0),
        (89, 'The Virgin Mary', 'This stained glass window is found in Glasgow Cathedral, Scotland, and was created by Gabriel Loire of France, one of the most prolific of artists in this medium--and now you can have it on this wonderful Christmas T-shirt.', 16.95, 15.95, 'the-virgin-mary.gif', 'the-virgin-mary-2.gif', 'the-virgin-mary-thumbnail.gif', 2),
@@ -124,8 +119,8 @@ INSERT INTO product (product_id, name, description, price, discounted_price, ima
        (100, 'The Rapture of Psyche', 'Now we''re getting a bit more serious!', 18.95, 16.99, 'the-rapture-of-psyche.gif', 'the-rapture-of-psyche-2.gif', 'the-rapture-of-psyche-thumbnail.gif', 2),
        (101, 'The Promise of Spring', 'With Valentine''s Day come, can Spring be far behind?', 21.00, 19.50, 'the-promise-of-spring.gif', 'the-promise-of-spring-2.gif', 'the-promise-of-spring-thumbnail.gif', 0);
 
--- --
-INSERT INTO product_category (product_id, category_id) VALUES
+-- Populate product_category table
+INSERT INTO `product_category` (`product_id`, `category_id`) VALUES
        (1, 1), (2, 1), (3, 1), (4, 1), (5, 1), (6, 1), (7, 1), (8, 1), (9, 1),
        (10, 1), (11, 1), (12, 1), (13, 1), (14, 1), (15, 1), (16, 1), (17, 1),
        (18, 1), (19, 2), (20, 2), (21, 2), (22, 2), (23, 2), (24, 2), (25, 2),
@@ -140,31 +135,30 @@ INSERT INTO product_category (product_id, category_id) VALUES
        (87, 6), (88, 6), (89, 6), (90, 6), (91, 6), (92, 6), (93, 6), (94, 6),
        (95, 6), (96, 7), (97, 7), (98, 7), (99, 7), (100, 7), (101, 7);
 
+-- Populate attribute table
+INSERT INTO `attribute` (`attribute_id`, `name`) VALUES
+       (1, 'Size'), (2, 'Color');
 
--- --
-INSERT INTO attribute (attribute_id, name) VALUES (1, 'Size'), (2, 'Color');
-
-
--- --
-INSERT INTO attribute_value (attribute_value_id, attribute_id, value) VALUES
+-- Populate attribute_value table
+INSERT INTO `attribute_value` (`attribute_value_id`, `attribute_id`, `value`) VALUES
        (1, 1, 'S'), (2, 1, 'M'), (3, 1, 'L'), (4, 1, 'XL'), (5, 1, 'XXL'),
        (6, 2, 'White'),  (7, 2, 'Black'), (8, 2, 'Red'), (9, 2, 'Orange'),
        (10, 2, 'Yellow'), (11, 2, 'Green'), (12, 2, 'Blue'),
        (13, 2, 'Indigo'), (14, 2, 'Purple');
 
+-- Populate product_attribute table
+INSERT INTO `product_attribute` (`product_id`, `attribute_value_id`)
+       SELECT `p`.`product_id`, `av`.`attribute_value_id`
+       FROM   `product` `p`, `attribute_value` `av`;
 
--- --
-INSERT INTO product_attribute (product_id, attribute_value_id) SELECT p.product_id, av.attribute_value_id FROM   product p, attribute_value av;
-
-
--- --
-INSERT INTO shipping_region (shipping_region_id, shipping_region) VALUES
+-- Populate shipping_region table
+INSERT INTO `shipping_region` (`shipping_region_id`, `shipping_region`) VALUES
        (1, 'Please Select') , (2, 'US / Canada'),
        (3, 'Europe'),         (4, 'Rest of World');
 
-
--- --
-INSERT INTO shipping (shipping_id,   shipping_type, shipping_cost, shipping_region_id) VALUES
+-- Populate shipping table
+INSERT INTO `shipping` (`shipping_id`,   `shipping_type`,
+                        `shipping_cost`, `shipping_region_id`) VALUES
        (1, 'Next Day Delivery ($20)', 20.00, 2),
        (2, '3-4 Days ($10)',          10.00, 2),
        (3, '7 Days ($5)',              5.00, 2),
@@ -173,126 +167,8 @@ INSERT INTO shipping (shipping_id,   shipping_type, shipping_cost, shipping_regi
        (6, 'By air (10 days, $35)',   35.00, 4),
        (7, 'By sea (28 days, $30)',   30.00, 4);
 
-
--- --
-INSERT INTO tax (tax_id, tax_type, tax_percentage) VALUES
+-- Populate tax table
+INSERT INTO `tax` (`tax_id`, `tax_type`, `tax_percentage`) VALUES
        (1, 'Sales Tax at 8.5%', 8.50),
        (2, 'No Tax',            0.00);
-`
 
-  const formatBlocks = (content) => {
-    //return new Promise((resolve, reject) => {
-      const blocks = content.split("-- --").filter(b => b.trim().length > 0)
-      console.log('blocks length ', blocks.length)
-      return blocks.map(b => b.trim())
-      //resolve(blocks)
-    //})
-  }
-
-  const formatSQL = (sql) => {
-      const lines = sql.split("\n").filter(line => line.trim().length > 0)
-      //console.log("lines count ", lines.length)
-    
-      if (lines.length > 1) {
-        const prefix = lines.shift()
-
-        return lines.map(line => {
-          let newLine = prefix.concat(' ').concat(line)
-          if (newLine.endsWith(',')) {
-            newLine = newLine.substring(0, newLine.length - 1) + ";";
-          }
-          return newLine
-        })
-      }
-
-      return lines
-  }
-
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*const blocks = formatBlocks(SQL)
-    const string = blocks.join("")
-    console.log('-------------------------------SQL BEBINS -------------------------')
-    //console.log(string)
-    console.log('-------------------------------SQL ENDS -------------------------')
-    const filePath = path.join(__dirname, 'sql/insertion.sql')
-    const sql = fs.readFileSync(filePath, { encoding: 'utf-8' } )
-    return queryInterface.sequelize.query(sql).then(([result, metadata]) => {
-      console.log('results  ', result)
-      console.log('metadata  ', metadata)
-    }).catch(err => {
-      //console.log(line)
-      console.log('error   ', err)
-    })*/
-
-    return new Promise((resolve, reject) => {
-      const blocks = formatBlocks(SQL)
-      blocks.forEach(block => {
-        /*queryInterface.sequelize.query(block).then(([result, metadata]) => {
-          console.log('results  ', result)
-          console.log('metadata  ', metadata)
-        }).catch(err => {
-          console.log(block)
-          console.log('error   ', err)
-          reject(err)
-        })*/
-      })
-      resolve()
-    })
-
-    /*return new Promise((resolve, reject) => {
-      const blocks = formatBlocks(SQL)
-      blocks.forEach(block => {
-        const lines = formatSQL(block)
-        lines.forEach(line => {
-          try {
-            //console.log(line)
-            queryInterface.sequelize.query(line).then(([result, metadata]) => {
-              console.log('results  ', result)
-              console.log('metadata  ', metadata)
-            }).catch(err => {
-              console.log(line)
-              console.log('error   ', err)
-            })
-              //console.log(i === lines.length - 1)
-              //if (i === lines.length - 1) {
-               // resolve()
-              //}
-            } catch(e) {
-            console.log(line)
-            reject(e)
-            }
-        })
-      })*
-        /*const lines = formatSQL(sql)
-        lines.forEach((line, i) => {
-          try {
-            queryInterface.sequelize.query(line)
-            console.log(i === lines.length - 1)
-            if (i === lines.length - 1) {
-             // resolve()
-            }
-          } catch(e) {
-            reject(e)
-          }
-        })
-        
-    })*/
-  },
-
-  down: (queryInterface, Sequelize) => {
-    return Promise.all([
-      queryInterface.bulkDelete('department', null, {}),
-      queryInterface.bulkDelete('category', null, {}),
-      queryInterface.bulkDelete('product', null, {}),
-      queryInterface.bulkDelete('product_category', null, {}),
-      queryInterface.bulkDelete('attribute', null, {}),
-      queryInterface.bulkDelete('attribute_value', null, {}),
-      queryInterface.bulkDelete('product_attribute', null, {}),
-      queryInterface.bulkDelete('shipping_region', null, {}),
-      queryInterface.bulkDelete('shipping', null, {}),
-      queryInterface.bulkDelete('tax', null, {})
-    ])
-    
-  }
-};
