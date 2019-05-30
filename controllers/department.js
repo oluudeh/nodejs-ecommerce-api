@@ -8,14 +8,8 @@ const DepartmentController = {
             const page = req.query.page || 1
             const itemsPerPage = req.headers.itemsPerPage || 10
             const offset = (page * itemsPerPage) - itemsPerPage
-            const result = await Department.findAndCountAll({ offset: offset, limit: itemsPerPage })
-            const payload = {
-                itemsPerPage: itemsPerPage,
-                page: page,
-                data: result.rows,
-                total: result.count
-            }
-            return res.status(200).send(payload)
+            const depts = await Department.findAll({ offset: offset, limit: itemsPerPage })
+            return res.status(200).send(depts)
         } catch(e) {
             console.log('getDepartments ', e)
             return res.status(400).send(e)

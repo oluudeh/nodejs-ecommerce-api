@@ -2,24 +2,10 @@ const validator = require('validator')
 const codes = require('../helpers/error_codes').user
 const db = require('../models')
 const Customer = db.sequelize.models.Customer
-
-
-const __error = (data) => {
-    return {
-        isValid: false,
-        error: {
-            status: 400,
-            ...data
-        }
-    }
-}
-
-const __success = () => {
-    return { isValid: true, error: null }
-}
+const helper = require('../helpers/validators')
 
 const __empty = (label, field) => {
-    return __error({
+    return helper.error({
         code: codes.required_field.code,
         message: codes.required_field.message(label),
         field: field
@@ -38,7 +24,7 @@ const CustomerValidator = {
         }
 
         if (!validator.isEmail(data.email)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_email,
                 field: 'email'
             })
@@ -48,41 +34,41 @@ const CustomerValidator = {
             where: {email: data.email}
         })
         if (__user && user.email !== data.email) {
-            return __error({
+            return helper.error({
                 ...codes.existing_email,
                 field: 'email'
             })
         }
 
         if (data.password && !validator.isEmpty(data.password) && data.password.length < 6) {
-            return __error({
+            return helper.error({
                 ...codes.short_password,
                 field: 'password'            
             })
         }
 
         if (data.day_phone && !validator.isMobilePhone(data.day_phone)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_phone_no,
                 field: 'day_phone'     
             })
         }
 
         if (data.eve_phone && !validator.isMobilePhone(data.eve_phone)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_phone_no,
                 field: 'eve_phone'     
             })
         }
 
         if (data.mob_phone && !validator.isMobilePhone(data.mob_phone)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_phone_no,
                 field: 'mob_phone'     
             })
         }
 
-        return __success()
+        return helper.success()
     },
 
     async validateRegister (data) {
@@ -95,7 +81,7 @@ const CustomerValidator = {
         }
 
         if (!validator.isEmail(data.email)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_email,
                 field: 'email'
             })
@@ -106,7 +92,7 @@ const CustomerValidator = {
         }
 
         if (data.password.length < 6) {
-            return __error({
+            return helper.error({
                 ...codes.short_password,
                 field: 'password'            
             })
@@ -116,13 +102,13 @@ const CustomerValidator = {
             where: {email: data.email}
         })
         if (user) {
-            return __error({
+            return helper.error({
                 ...codes.existing_email,
                 field: 'email'
             })
         }
 
-        return __success()
+        return helper.success()
     },
 
     validateLogin (data) {
@@ -132,7 +118,7 @@ const CustomerValidator = {
         }
 
         if (!validator.isEmail(data.email)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_email,
                 field: 'email'
             })
@@ -142,7 +128,7 @@ const CustomerValidator = {
             return __empty('Password', 'password')
         }
 
-        return __success()
+        return helper.success()
     },
 
     validateAddress (data) {
@@ -172,13 +158,13 @@ const CustomerValidator = {
         }
 
         if (!validator.isInt(data.shipping_region_id)) {
-           return __error({
+           return helper.error({
                ...codes.shipping_region,
                field: 'shipping_region_id',
            }) 
         }
 
-        return __success()
+        return helper.success()
     },
 
     validateCC (data) {
@@ -187,13 +173,13 @@ const CustomerValidator = {
         }
 
         if (!validator.isCreditCard(data.credit_card)) {
-            return __error({
+            return helper.error({
                 ...codes.invalid_credit_card,
                 field: 'credit_card'
             })
         }
 
-        return __success()
+        return helper.success()
     }
 }
 

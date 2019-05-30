@@ -1,6 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define('Category', {
+    category_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     department_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -14,6 +18,7 @@ module.exports = (sequelize, DataTypes) => {
     engine: 'MYISAM',
     freezeTableName: true,
     tableName: 'category',
+    timestamps: false,
     indexes: [
       {
         name: 'idx_category_department_id',

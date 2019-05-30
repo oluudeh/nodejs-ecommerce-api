@@ -17,6 +17,14 @@ module.exports = {
         order_not_allowed: {
             code: 'PAG_02',
             message: 'The field of order is not allowed'
+        },
+        page_not_number: {
+            code: 'PAG_03',
+            message: 'The Page field is not a number'
+        },
+        limit_not_number: {
+            code: 'PAG_03',
+            message: 'The Limit field is not a number'
         }
     },
     user: {
