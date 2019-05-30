@@ -1,8 +1,9 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-const routes = require('./routes');
+const passport = require('passport')
 
+require('./helpers/passport')
 
 //set up express
 const app = express();
@@ -14,10 +15,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+const routes = require('./routes');
 /*app.get('*', (req, res) => res.status(200).send({
     message: "Welcome to my API"
 }));*/
 app.use('/', routes)
+app.use(passport.initialize())
 
 
 module.exports = app;

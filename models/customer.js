@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     mob_phone: DataTypes.STRING
   }, {
     freezeTableName: true,
-    tableName: 'customer'
+    tableName: 'customer',
+    timestamps: false
   });
   Customer.associate = function(models) {
     // associations can be defined here

@@ -1,13 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
-//const DepartmentController = require('../controllers/department')
-
-
 const deptRoutes = require('../routes/department')
+const customerRoutes = require('../routes/customer')
 
 deptRoutes(router)
-//router.get('/departments', DepartmentController.getDepartments)
-
+customerRoutes(router)
 
 module.exports = router
