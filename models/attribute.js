@@ -1,11 +1,15 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Attribute = sequelize.define('Attribute', {
-    attribute_id: DataTypes.INTEGER,
+    attribute_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     name: DataTypes.STRING
   }, {
     freezeTableName: true,
-    tableName: 'attribute'
+    tableName: 'attribute',
+    timestamps: false
   });
   Attribute.associate = function(models) {
     // associations can be defined here
