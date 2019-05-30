@@ -15,7 +15,6 @@ const CategoryController = {
             const page = req.query.page || 1
             const limit = parseInt(req.query.limit) || 20
             const offset = (page * limit) - limit
-            console.log('offset', offset)
             const orderBy = req.query.order || 'category_id'
             const categories = await Category.findAndCountAll({ offset: offset, limit: limit, order: [[orderBy]] })
             //const categories = await Category.findAll({ offset: offset, limit: itemsPerPage })

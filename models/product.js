@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
-    product_id: DataTypes.INTEGER,
+    product_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.DECIMAL,
@@ -13,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     engine: 'MYISAM', 
     freezeTableName: true,
-    tableName: 'category',
+    tableName: 'product',
+    timestamps: false,
     indexes: [
       {
         name: 'idx_ft_product_name_description',

@@ -25,6 +25,10 @@ module.exports = {
         limit_not_number: {
             code: 'PAG_03',
             message: 'The Limit field is not a number'
+        },
+        desc_len_not_number: {
+            code: 'PAG_04',
+            message: 'The Description Length field is not a number'
         }
     },
     user: {
@@ -89,6 +93,20 @@ module.exports = {
         not_exists: {
             code: 'DEP_02',
             message: 'A department with this ID does not exist.'
+        }
+    },
+    product: {
+        field_required: {
+            code: 'PRD_01',
+            message: (field) => `The ${field} field is required.`
+        },
+        all_words: {
+            code: 'PRD_02',
+            message: "Only 'on' and 'off' are allowed"
+        },
+        rating_not_number: {
+            code: 'PRD_03',
+            message: 'Rating is not a number'
         }
     }
 }

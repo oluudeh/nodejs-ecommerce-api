@@ -12,7 +12,8 @@ module.exports = (sequelize, DataTypes) => {
     created_on: DataTypes.DATE
   }, {
     freezeTableName: true,
-    tableName: 'review'
+    tableName: 'review',
+    timestamps: false
   });
   Review.associate = function(models) {
     // associations can be defined here
