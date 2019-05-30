@@ -104,9 +104,9 @@ module.exports = {
             code: 'PRD_02',
             message: "Only 'on' and 'off' are allowed"
         },
-        rating_not_number: {
+        field_not_number: {
             code: 'PRD_03',
-            message: 'Rating is not a number'
+            message: (field) => `The ${field} field must an integer`
         }
     }
 }

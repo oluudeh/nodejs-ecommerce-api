@@ -92,7 +92,8 @@ const ProductValidator = {
 
         if (!validator.isInt(data.rating)) { 
             return helper.error({
-                ...product.rating_not_number,
+                code: product.field_not_number.code,
+                message: product.field_not_number.message('Rating'),
                 field: 'rating'
             })
         }

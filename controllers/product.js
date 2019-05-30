@@ -208,6 +208,28 @@ const ProductController = {
         }
 
         try {
+            const products = await db.sequelize.query(
+                `CALL catalog_create_product_review ( 
+                    :inCustomerId,
+                    :inProductId,
+                    :inReview,
+                    :inRating
+                    )`, 
+                {
+                    replacements: { 
+                        inCustomerId: req.user.customer_id,
+                        inProductId: req.params.product_id,
+                        inReview: req.body.review,
+                        inRating: req.body.rating 
+                    }
+                })
+            return res.send(products)
+        } catch(err) {
+            console.log(err)
+            return res.status(500).send(err)
+        }
+
+       /* try {
             const data = {
                 customer_id: req.user.customer_id,
                 product_id: req.params.product_id,
@@ -216,10 +238,10 @@ const ProductController = {
                 created_on: new Date()
             }
             const review = await Review.create(data)
-            return res.send(review)
+            return res.send()
         } catch (err) {
             return res.status(500).send(err)
-        }
+        } */
     }
 }
 

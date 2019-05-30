@@ -3,7 +3,9 @@ module.exports = (sequelize, DataTypes) => {
   const Order = sequelize.define('Order', {
     order_id: {
       type: DataTypes.INTEGER,
-      primaryKey: true
+      primaryKey: true,
+      autoIncrement: true,
+      unique: true
     },
     total_amount: DataTypes.DECIMAL,
     created_on: DataTypes.DATE,
@@ -15,7 +17,9 @@ module.exports = (sequelize, DataTypes) => {
     reference: DataTypes.STRING,
     shipping_id: DataTypes.INTEGER,
     tax_id: DataTypes.INTEGER
-  }, {});
+  }, {
+    timestamps: false
+  });
   Order.associate = function(models) {
     // associations can be defined here
   };
