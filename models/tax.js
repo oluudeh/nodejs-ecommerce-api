@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     tax_percentage: DataTypes.NUMERIC
   }, {
     freezeTableName: true,
-    tableName: 'tax'
+    tableName: 'tax',
+    timestamps: false
   });
   Tax.associate = function(models) {
     // associations can be defined here
