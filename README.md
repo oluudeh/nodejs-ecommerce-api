@@ -33,18 +33,14 @@ You can test the app as a whole or test the various modules seperately.
 
 *Note* You need to have mocha installed globally to run tests. run the following command to install mocha globally:
 
-    ```
     npm install -g mocha
-    ```
+
 To test the whole app run the following command inside the project directory.
 
-    ```
     npm run test
-    ```
 
 To test the various modules seperately, run one of the following commands
 
-    ```
     npm run test:attributes
     npm run test:categories
     npm run test:customers
@@ -54,7 +50,6 @@ To test the various modules seperately, run one of the following commands
     npm run test:shipping
     npm run test:shopping_cart
     npm run test:taxes
-    ```
 
 # API Documentation
 
