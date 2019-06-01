@@ -52,6 +52,22 @@ To test the various modules seperately, run one of the following commands
     npm run test:taxes
 
 # API Documentation
+The API is divided into sub sections. These subsections and their routes are listed and described as follows:
+
+1. Department: Contains all department related routes
+    i. `GET /departments` this route returns a list of all departments. It takes no request parameters.
+    ii. `GET /departments/{department_id}` this route returns details of the department that owns the `department_id` path parameter in the route.
+
+2. Categories: Contains all category related routes
+    i. `GET /categories` this route returns a paginated object containing a list of categories. The returned list can be modified by specifying various query parameters.
+
+    Supported parameters include:
+        a. `order (string)` used for sorting the list. Allowed values are: `category_id` and `name`.
+        b. `page (integer)` the page to be returned.
+        c. `limit (integer)` specifies the maximum number of items a list can contain.
+
+    ii. `GET /categories/{category_id}` this route returns details of the category that owns the `category_id` path parameter in the route.
+
 
 # Change Log
 The following changes were made during the course of development
