@@ -55,10 +55,13 @@ To test the various modules seperately, run one of the following commands
 The API is divided into sub sections. These subsections and their routes are listed and described as follows:
 
 1. Department: Contains all department related routes
+
     i. `GET /departments` this route returns a list of all departments. It takes no request parameters.
+
     ii. `GET /departments/{department_id}` this route returns details of the department that owns the `department_id` path parameter in the route.
 
 2. Categories: Contains all category related routes
+
     i. `GET /categories` this route returns a paginated object containing a list of categories. The returned list can be modified by specifying various query parameters.
 
     Supported parameters include:
