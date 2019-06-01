@@ -51,6 +51,8 @@ To test the various modules seperately, run one of the following commands
     npm run test:shopping_cart
     npm run test:taxes
 
+### In order to test the email feature, the email address in test/order.js can be changed to the email the notification should sent to.
+
 # API Documentation
 The API is divided into sub sections. These subsections and their routes are listed and described as follows:
 
