@@ -36,28 +36,37 @@ You can test the app as a whole or test the various modules seperately.
     npm install -g mocha
     ```
 To test the whole app run the following command inside the project directory.
+
     ```
-    npm run test
+        npm run test
     ```
+
 To test the various modules seperately, run one of the following commands
+
     ```
     npm run test:attributes
     ```
+
     ```
     npm run test:categories
     ```
+
     ```
     npm run test:customers
     ```
+
     ```
     npm run test:departments
     ```
+
     ```
     npm run test:orders
     ```
+
     ```
     npm run test:products
     ```
+
     ```
     npm run test:shipping
     ```
