@@ -2,7 +2,7 @@
 
 >An E-commerce API
 
-# Technology Stack
+## Technology Stack
 This API is built on NodeJS and MySQL. Some of the modules used include:
 1. Express JS for handling HTTP requests.
 2. MySQL database for storing application data.
@@ -12,7 +12,7 @@ This API is built on NodeJS and MySQL. Some of the modules used include:
 6. Dotenv to handle configurations.
 7. ApiCache to handle caching
 
-# Installation
+## Installation
 Follow the following steps to install
 1. Clone the repo
 2. Move to project directory
@@ -28,7 +28,7 @@ Follow the following steps to install
     ```
 
 
-# Tests
+## Tests
 You can test the app as a whole or test the various modules seperately.
 
 *Note* You need to have mocha installed globally to run tests. run the following command to install mocha globally:
@@ -51,9 +51,9 @@ To test the various modules seperately, run one of the following commands
     npm run test:shopping_cart
     npm run test:taxes
 
-### In order to test the email feature, the email address in test/order.js can be changed to the email the notification should sent to.
+#### In order to test the email feature, the email address in test/order.js can be changed to the email the notification should sent to.
 
-# API Documentation
+## API Documentation
 The API is divided into sub sections. These subsections and their routes are listed and described as follows:
 
 1. Department: Contains all department related routes
@@ -89,7 +89,7 @@ The API is divided into sub sections. These subsections and their routes are lis
 
 10. Stripe (Payment): coming soon...
 
-# Change Log
+## Change Log
 The following changes were made during the course of development
 1. Database changes: I changed the length of the password column in the customer table from 50 to 60 in order to accommodate password hashes.
 
@@ -109,10 +109,9 @@ However, this can be set in the config (.env) file.
 
 4. Authentication header key: The API challenge document says to use `USER-KEY` as the header while the Swagger documentation uses `API-KEY.` I used `USER-KEY` in this application. 
 
-# Advanced Requirements
+## Advanced Requirements
 
-# About Remote Job Alert
-## App Scaling
+### App Scaling
 The following steps can be taken to make the ap scale better.
 1. Implement a more robust caching mechanism using Redis.
 To add Redis to the current cache mechanism, the following adaptations can be made to the code:
