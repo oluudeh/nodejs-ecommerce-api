@@ -1,8 +1,16 @@
 const db = require('../models')
 const Attribute = db.sequelize.models.Attribute
 
+/**
+ * Handles attributes API requests
+ */
 const AttributeController = {
 
+    /**
+     * Fetches list of attributes 
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getAttributes(req, res) {
 
         try {
@@ -14,6 +22,11 @@ const AttributeController = {
         }
     },
 
+    /**
+     * Fetches a specific attribute
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getAttribute(req, res) {
         try {
             const attribute = await Attribute.findOne({
@@ -26,6 +39,11 @@ const AttributeController = {
         }
     },
 
+    /**
+     * Fetches a list of attributes attached to a specific product
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getInProductAttributes (req, res) {
         try {
             const attributes = await db.sequelize.query(
@@ -40,6 +58,11 @@ const AttributeController = {
         }
     },
 
+    /**
+     * Fetches attribute values 
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getAttributeValues (req, res) {
         try {
             const attributes = await db.sequelize.query(

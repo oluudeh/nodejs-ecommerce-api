@@ -1,6 +1,9 @@
 const db = require('../models')
 const Tax = db.sequelize.models.Tax
 
+/**
+ * Handles tax API requests
+ */
 const TaxController = {
     async getTaxes (req, res) {
         try {

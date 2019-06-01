@@ -7,7 +7,6 @@ describe('GET /shipping/regions', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('array');
-            res.body.length.should.be.eql(2)
 
             done();
         })
@@ -21,7 +20,6 @@ describe('GET /shipping/regions/{shipping_region_id}', () => {
         .end((err, res) => {
             res.should.have.status(200);
             res.body.should.be.a('array');
-            res.body.length.should.be.eql(1)
 
             done();
         })

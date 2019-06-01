@@ -2,8 +2,19 @@ const db = require('../models')
 const Category = db.sequelize.models.Category
 const validator = require('../validations/category')
 
+
+/**
+ * Handles categories API requests
+ */
 const CategoryController = {
 
+    /**
+     * Fetches a paginated list of categories
+     * Accepts request queries (page, limit and order)
+     * Queries are used to filter the returned list
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getCategories(req, res) {
 
         const { isValid, error } = validator.validateFilter(req.query)
@@ -25,6 +36,11 @@ const CategoryController = {
         }
     },
 
+    /**
+     * Fetches details of a specific category
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getCategory(req, res) {
         try {
             const category = await Category.findOne({
@@ -37,6 +53,11 @@ const CategoryController = {
         }
     },
 
+    /**
+     * Fetches categories of a specific product
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getInProductCategories (req, res) {
         try {
             const categories = await db.sequelize.query(
@@ -51,6 +72,11 @@ const CategoryController = {
         }
     },
 
+    /**
+     * Fetches categories based on departments
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getInDeptCategories (req, res) {
         try {
             const categories = await Category.findAll({

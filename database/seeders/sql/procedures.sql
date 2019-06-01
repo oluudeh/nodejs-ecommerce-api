@@ -641,10 +641,11 @@ BEGIN
   INTO   productQuantity;
 
   -- Create new shopping cart record, or increase quantity of existing record
+  -- Ikay modified this procedure
   IF productQuantity IS NULL THEN
-    INSERT INTO shopping_cart(item_id, cart_id, product_id, attributes,
+    INSERT INTO shopping_cart(cart_id, product_id, attributes,
                               quantity, added_on)
-           VALUES (UUID(), inCartId, inProductId, inAttributes, 1, NOW());
+           VALUES (inCartId, inProductId, inAttributes, 1, NOW());
   ELSE
     UPDATE shopping_cart
     SET    quantity = quantity + 1, buy_now = true
@@ -655,8 +656,11 @@ BEGIN
 END$$
 
 -- Create shopping_cart_update_product stored procedure
+-- Ikay modified this procedure
 CREATE PROCEDURE shopping_cart_update(IN inItemId INT, IN inQuantity INT)
 BEGIN
+  DECLARE cartId CHAR(32);
+
   IF inQuantity > 0 THEN
     UPDATE shopping_cart
     SET    quantity = inQuantity, added_on = NOW()
@@ -664,7 +668,20 @@ BEGIN
   ELSE
     CALL shopping_cart_remove_product(inItemId);
   END IF;
+  
+  SELECT cart_id from shopping_cart WHERE item_id = inItemId INTO cartId;
+
+  SELECT     sc.item_id, p.name, sc.attributes, p.product_id,
+             COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
+             sc.quantity,
+             COALESCE(NULLIF(p.discounted_price, 0),
+                      p.price) * sc.quantity AS subtotal
+  FROM       shopping_cart sc
+  INNER JOIN product p
+               ON sc.product_id = p.product_id
+  WHERE      sc.cart_id = cartId AND sc.buy_now;
 END$$
+
 
 -- Create shopping_cart_remove_product stored procedure
 CREATE PROCEDURE shopping_cart_remove_product(IN inItemId INT)
@@ -673,9 +690,10 @@ BEGIN
 END$$
 
 -- Create shopping_cart_get_products stored procedure
+-- Ikay modified this
 CREATE PROCEDURE shopping_cart_get_products(IN inCartId CHAR(32))
 BEGIN
-  SELECT     sc.item_id, p.name, sc.attributes,
+  SELECT     sc.item_id, p.name, sc.attributes, p.product_id, p.image,
              COALESCE(NULLIF(p.discounted_price, 0), p.price) AS price,
              sc.quantity,
              COALESCE(NULLIF(p.discounted_price, 0),

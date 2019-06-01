@@ -1,6 +1,6 @@
 const { chai } = require('./util')
 
-describe('POST /stripe/charge', () => {
+/*describe('POST /stripe/charge', () => {
     it('Receive payment', done => {
         const data = {
 
@@ -16,4 +16,4 @@ describe('POST /stripe/charge', () => {
             done();
         })
     })
-})
+}) */

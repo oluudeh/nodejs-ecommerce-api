@@ -1,3 +1,6 @@
+/**
+ * Error codes mapping
+ */
 module.exports = {
     auth: {
         code_empty: {
@@ -107,6 +110,20 @@ module.exports = {
         field_not_number: {
             code: 'PRD_03',
             message: (field) => `The ${field} field must an integer`
+        }
+    },
+    cart: {
+        field_required: {
+            code: 'CRT_01',
+            message: (field) => `The ${field} field is required.`
+        },
+        field_not_number: {
+            code: 'CRT_02',
+            message: (field) => `The ${field} field must an integer`
+        },
+        cart_not_exit: {
+            code: 'CRT_03',
+            message: 'No such cart exists.'
         }
     }
 }

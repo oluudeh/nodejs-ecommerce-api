@@ -1,7 +1,12 @@
 const passport = require('passport')
 const codes = require('../helpers/error_codes').auth
 
-
+/**
+ * Authentication check middleware
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} next 
+ */
 module.exports = async function authenticate (req, res, next) {
     return passport.authenticate('jwt', { session: false }, (error, user, info) => {
         //console.log('USER ', user)

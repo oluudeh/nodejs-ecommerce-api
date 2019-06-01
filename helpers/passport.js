@@ -44,6 +44,7 @@ passport.use('login', new LocalStrategy({
         //all good
         return done(null, user, { message: 'Logged in successfully'})
     } catch (err) {
+        console.log('passport.use ', err)
         return done(err)
     }
 }));

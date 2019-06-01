@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     added_on: DataTypes.DATE
   }, {
     freezeTableName: true,
-    tableName: 'shopping_cart'
+    tableName: 'shopping_cart',
+    timestamps: false
   });
   ShoppingCart.associate = function(models) {
     // associations can be defined here

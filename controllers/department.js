@@ -1,14 +1,19 @@
 const db = require('../models')
 const Department = db.sequelize.models.Department
 
+/**
+ * Handles departments API requests
+ */
 const DepartmentController = {
 
+    /**
+     * Fetches list of departments
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getDepartments(req, res) {
         try {
-            const page = req.query.page || 1
-            const itemsPerPage = req.headers.itemsPerPage || 10
-            const offset = (page * itemsPerPage) - itemsPerPage
-            const depts = await Department.findAll({ offset: offset, limit: itemsPerPage })
+            const depts = await Department.findAll()
             return res.status(200).send(depts)
         } catch(e) {
             console.log('getDepartments ', e)
@@ -16,6 +21,12 @@ const DepartmentController = {
         }
     },
 
+
+    /**
+     * Fetches details of a specific department
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getDepartment(req, res) {
         try {
             const dept = await Department.findOne({

@@ -1,7 +1,15 @@
 const db = require('../models')
 
+/**
+ * handles shipping API requests
+ */
 const ShippingController = {
 
+    /**
+     * Fetches a list of shipping regions 
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getRegions (req, res) {
         try {
             const regions = await db.sequelize.query("CALL customer_get_shipping_regions()")
@@ -12,6 +20,11 @@ const ShippingController = {
         }
     },
 
+    /**
+     * Fetches a list of shippings based on a specific shipping region
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getShippings (req, res) {
         try {
             const shippings = await db.sequelize.query(

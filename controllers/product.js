@@ -3,8 +3,18 @@ const Product = db.sequelize.models.Product
 const Review = db.sequelize.models.Review
 const validator = require('../validations/product')
 
+
+/**
+ * handles products API requests
+ */
 const ProductController = {
 
+    /**
+     * Fetches list of products based of filter queries.
+     * Queries can be any combination of page, limit and description_length
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getProducts (req, res) {
         const { isValid, error } = validator.validateFilter(req.query)
         if (!isValid) {
@@ -37,6 +47,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Fetched details of a specific product
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getProduct (req, res) {
         try {
             const product = await Product.findOne({
@@ -50,6 +65,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Handles product search
+     * @param {*} req 
+     * @param {*} res 
+     */
     async productSearch (req, res) {
         const { isValid, error } = validator.validateSearch(req.query)
         if (!isValid) {
@@ -89,6 +109,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Fetches a list of products based on a specific category
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getCategoryProducts (req, res) {
         const { isValid, error } = validator.validateFilter(req.query)
         if (!isValid) {
@@ -123,6 +148,12 @@ const ProductController = {
         }
     },
 
+
+    /**
+     * Fetches a list of products based on a specific department
+     * @param {*} req 
+     * @param {*} res 
+     */    
     async getDeptProducts (req, res) {
         const { isValid, error } = validator.validateFilter(req.query)
         if (!isValid) {
@@ -157,6 +188,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Fetches details of a specific product
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getProductDetails (req, res) {
         try {
             const product = await Product.findOne({
@@ -171,6 +207,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Fetches product locations
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getProductLocations (req, res) {
 
         try {
@@ -186,6 +227,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Fetches reviews of a specific product
+     * @param {*} req 
+     * @param {*} res 
+     */
     async getProductReviews (req, res) {
 
         try {
@@ -201,6 +247,11 @@ const ProductController = {
         }
     },
 
+    /**
+     * Creates a new product review
+     * @param {*} req 
+     * @param {*} res 
+     */
     async postProductReview (req, res) {
         const { isValid, error } = validator.validateReview(req.body)
         if (!isValid) {
@@ -228,20 +279,6 @@ const ProductController = {
             console.log(err)
             return res.status(500).send(err)
         }
-
-       /* try {
-            const data = {
-                customer_id: req.user.customer_id,
-                product_id: req.params.product_id,
-                review: req.body.review,
-                rating: req.body.rating,
-                created_on: new Date()
-            }
-            const review = await Review.create(data)
-            return res.send()
-        } catch (err) {
-            return res.status(500).send(err)
-        } */
     }
 }
 

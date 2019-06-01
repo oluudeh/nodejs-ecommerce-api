@@ -11,7 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     code: DataTypes.INTEGER
   }, {
     freezeTableName: true,
-    tableName: 'audit'
+    tableName: 'audit',
+    timestamps: false
   });
   Audit.associate = function(models) {
     // associations can be defined here
