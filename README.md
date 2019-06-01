@@ -38,7 +38,7 @@ You can test the app as a whole or test the various modules seperately.
 To test the whole app run the following command inside the project directory.
 
     ```
-        npm run test
+    npm run test
     ```
 
 To test the various modules seperately, run one of the following commands
@@ -97,7 +97,7 @@ I also modified some stored procedures. The modified procedures include
 
 However, this can be set in the config (.env) file.
 
-4. Authentication header key: The API challenge document says to use 'USER-KEY' as the header while the Swagger documentation uses API-KEY. I used 'USER-KEY' in this application. 
+4. Authentication header key: The API challenge document says to use `USER-KEY` as the header while the Swagger documentation uses `API-KEY.` I used `USER-KEY` in this application. 
 
 # Advanced Requirements
 
