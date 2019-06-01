@@ -1,6 +1,6 @@
 # Turing Backend Challenge
 
-An E-commerce API
+>An E-commerce API
 
 # Technology Stack
 This API is built on NodeJS and MySQL. Some of the modules used include:
@@ -17,42 +17,77 @@ Follow the following steps to install
 1. Clone the repo
 2. Move to project directory
 3. Run the following to install dependences
-    `npm install`
+    ```
+    npm install
+    ```
 4. Set up database. Modified sql file can be found here. You need to copy the file contents unto a MySQL console.
 5. Rename the .env-example file to .env and fill in the correct settings and credentials
 6. Run the following code to start up the app
-    `npm run start:dev`
+    ```
+    npm run start:dev
+    ```
 
 
 # Tests
 You can test the app as a whole or test the various modules seperately.
+
 *Note* You need to have mocha installed globally to run tests. run the following command to install mocha globally:
-    `npm install -g mocha`
+    ```
+    npm install -g mocha
+    ```
 To test the whole app run the following command inside the project directory.
-    `npm run test`
+    ```
+    npm run test
+    ```
 To test the various modules seperately, run one of the following commands
-    `npm run test:attributes`
-    `npm run test:categories`
-    `npm run test:customers`
-    `npm run test:departments`
-    `npm run test:orders`
-    `npm run test:products`
-    `npm run test:shipping`
-    `npm run test:shopping_cart`
-    `npm run test:taxes`
+    ```
+    npm run test:attributes
+    ```
+    ```
+    npm run test:categories
+    ```
+    ```
+    npm run test:customers
+    ```
+    ```
+    npm run test:departments
+    ```
+    ```
+    npm run test:orders
+    ```
+    ```
+    npm run test:products
+    ```
+    ```
+    npm run test:shipping
+    ```
+    ```
+    npm run test:shopping_cart
+    ```
+    ```
+    npm run test:taxes
+    ```
 
 # API Documentation
 
 # Change Log
 The following changes were made during the course of development
 1. Database changes: I changed the length of the password column in the customer table from 50 to 60 in order to accommodate password hashes.
+
 I also modified some stored procedures. The modified procedures include 
+
     i.   shopping_cart_add_product
+
     ii.  shopping_cart_update
+
     iii. shopping_cart_get_products
+
 2. Error message changes: Some error cases (such as invalid phone number, invalid credit card number, etc) were not accounted for in the error document; I created them.
+
 3. Stripe key changes: In the backend challenge document, the Stripe secret key was provided for use, however the publishable key was not provided. Although the pub-key is not required to complete the task, it is required to generate a matching token. So I used the test secret key and pub-key provided on Stripe website to complete the task. 
+
 However, this can be set in the config (.env) file.
+
 4. Authentication header key: The API challenge document says to use 'USER-KEY' as the header while the Swagger documentation uses API-KEY. I used 'USER-KEY' in this application. 
 
 # Advanced Requirements
