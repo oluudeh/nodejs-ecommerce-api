@@ -183,3 +183,6 @@ To add Redis to the current cache mechanism, the following adaptations can be ma
 
 
 4. Aside from code adaptations, the server infrastructures can be scaled.
+
+### Time Spent
+Average of 38 hours
