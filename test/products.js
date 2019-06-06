@@ -6,7 +6,8 @@ describe('GET /products', () => {
         .get('/products')
         .end((err, res) => {
             res.should.have.status(200);
-            res.body.should.be.a('array');
+            res.body.should.be.a('object');
+            res.body.rows.should.a('array')
 
             done();
         })
