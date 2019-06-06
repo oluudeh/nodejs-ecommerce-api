@@ -135,7 +135,7 @@ const OrderController = {
             const stripeHandle = stripe(process.env.STRIPE_SEC_KEY)
 
             const charge = await stripeHandle.charges.create({
-                amount: req.body.amount,
+                amount: parseFloat(req.body.amount) * 100,
                 source: req.body.stripeToken,
                 receipt_email: email,
                 description: req.body.description,

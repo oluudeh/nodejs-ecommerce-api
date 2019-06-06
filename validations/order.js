@@ -103,7 +103,7 @@ const OrderValidator = {
             })
         }
 
-        if (!validator.isInt(data.amount)) { 
+        if (!validator.isNumeric(data.amount)) { 
             return helper.error({
                 code: product.field_not_number.code,
                 message: product.field_not_number.message('Amount'),
