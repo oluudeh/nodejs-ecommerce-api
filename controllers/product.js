@@ -27,8 +27,10 @@ const ProductController = {
             const offset = (page * limit) - limit
             const desc_length = parseInt(req.query.description_length) || 200
 
+            const count = await Product.count()
+
             const products = await db.sequelize.query(
-                `CALL catalog_get_products_on_catalog (
+                `CALL catalog_get_products_on_catalog2 (
                     :inShortProductDescriptionLength, 
                     :inProductsPerPage, 
                     :inStartItem)
@@ -40,7 +42,10 @@ const ProductController = {
                         inStartItem: offset
                     }
                 })
-            return res.send(products)
+            return res.send({
+                count: count,
+                rows: products
+            })
         } catch(err) {
             console.log(err)
             return res.status(500).send(err)
@@ -84,6 +89,18 @@ const ProductController = {
             const offset = (page * limit) - limit
             const descLength = parseInt(req.query.description_length) || 200
 
+            const count = await db.sequelize.query(
+                `CALL catalog_count_search_result (
+                    :inSearchString,
+                    :inAllWords)
+                `, 
+                {
+                    replacements: { 
+                        inSearchString: query,
+                        inAllWords: allWords
+                    }
+                })
+
             const products = await db.sequelize.query(
                 `CALL catalog_search (
                     :inSearchString,
@@ -102,7 +119,10 @@ const ProductController = {
                     }
                 })
 
-            return res.send(products)
+            return res.send({
+                count: count[0]['count(*)'],
+                rows: products
+            })
         } catch(err) {
             console.log(err)
             return res.status(500).send(err)
