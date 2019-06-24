@@ -50,7 +50,7 @@
       }
     ],
     "schemes": [
-      "http"
+      "https"
     ],
     "consumes": [
       "application/x-www-form-urlencoded"
