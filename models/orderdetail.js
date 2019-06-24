@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
     unit_cost: DataTypes.DECIMAL
   }, {
     tableName: 'order_detail',
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps: false
   });
   OrderDetail.associate = function(models) {
     // associations can be defined here

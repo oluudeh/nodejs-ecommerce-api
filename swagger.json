@@ -1,0 +1,2177 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Turing Challenge E-Commerce API Documentation",
+      "description": "Documentation for the Turing challenge E-Commerce API Documentation"
+    },
+    "host": "school.makingbosses.com.ng",
+    "basePath": "/",
+    "tags": [
+      {
+        "name": "Departments",
+        "description": "API documentation for departments"
+      },
+      {
+        "name": "Categories",
+        "description": "API documentation for categories"
+      },
+      {
+        "name": "Attributes",
+        "description": "API documentation for attributes"
+      },
+      {
+        "name": "Products",
+        "description": "API documentation for products"
+      },
+      {
+        "name": "Customers",
+        "description": "API documentation for customers"
+      },
+      {
+        "name": "Orders",
+        "description": "API documentation for orders"
+      },
+      {
+        "name": "Shopping Cart",
+        "description": "API documentation for shopping cart"
+      },
+      {
+        "name": "Tax",
+        "description": "API documentation for taxes"
+      },
+      {
+        "name": "Shipping",
+        "description": "API documentation for shipping"
+      },
+      {
+        "name": "Stripe",
+        "description": "API documentation for payment with Stripe"
+      }
+    ],
+    "schemes": [
+      "http"
+    ],
+    "consumes": [
+      "application/x-www-form-urlencoded"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "securityDefinitions": {
+        "auth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "USER-KEY"
+        }
+    },
+    "paths": {
+      "/departments": {
+          "get": {
+              "tags": [
+                  "Departments"
+              ],
+              "summary": "Get all departments",
+              "description": "Returns a list of departments",
+              "responses": {
+                  "200":{
+                      "description": "An array of Department objects",
+                      "schema":{
+                          "type":"array",
+                          "items": {
+                            "$ref":"#/definitions/Department"
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/departments/{department_id}": {
+          "parameters":[
+              {
+                  "name": "department_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "The ID of the department."
+              }
+          ],
+          "get": {
+              "tags":[
+                  "Departments"
+              ],
+              "summary":"Get the department with the given ID",
+              "responses": {
+                  "200":{
+                      "description": "Department is found",
+                      "schema":{
+                          "$ref":"#/definitions/Department"
+                      }
+                  },
+                  "400":{
+                      "description": "Return an error object",
+                      "schema":{
+                          "$ref":"#/definitions/Error"
+                      }
+                  }
+              }
+          }
+      },
+      "/categories": {
+          "parameters":[
+              {
+                  "name":"order",
+                  "type":"string",
+                  "in":"query",
+                  "description": "Sorting a field. Allowed fields are category_id and name"
+              },
+              {
+                  "name": "page",
+                  "type":"integer",
+                  "in":"query",
+                  "description":"The page number. Defaults to 1"
+              },
+              {
+                  "name":"limit",
+                  "type":"integer",
+                  "in":"query",
+                  "description":"Number of items per page. Defaults to 20"
+              }
+          ],
+          "get": {
+              "tags": [
+                  "Categories"
+              ],
+              "summary": "Get all categories",
+              "responses": {
+                  "200":{
+                      "description": "OK",
+                      "schema":{
+                          "type":"array",
+                          "items":{
+                            "$ref":"#/definitions/Category"
+                          }
+                      }
+                  }
+              }
+          }
+      },
+      "/categories/{category_id}": {
+          "parameters":[
+              {
+                  "name": "category_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "The ID of the category."
+              }
+          ],
+          "get": {
+              "tags":[
+                  "Categories"
+              ],
+              "summary":"Get the category with the given ID",
+              "responses": {
+                  "200":{
+                      "description": "Category is found",
+                      "schema":{
+                          "$ref":"#/definitions/Category"
+                      }
+                  },
+                  "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+          }
+      },
+      "/categories/inProduct/{product_id}": {
+          "parameters":[
+              {
+                  "name": "product_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "The ID of a product."
+              }
+          ],
+          "get": {
+              "tags":[
+                  "Categories"
+              ],
+              "summary":"Get the categories of a given product",
+              "responses": {
+                  "200":{
+                      "description": "Categories are found",
+                      "schema":{
+                          "type":"array",
+                          "items":{
+                            "$ref":"#/definitions/Category"
+                          }
+                      }
+                  },
+                  "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+          }
+      },
+      "/categories/inDepartment/{department_id}": {
+          "parameters":[
+              {
+                  "name": "department_id",
+                  "in": "path",
+                  "required": true,
+                  "description": "The ID of the department."
+              }
+          ],
+          "get": {
+              "tags":[
+                  "Categories"
+              ],
+              "summary":"Get the categories from a given department",
+              "responses": {
+                  "200":{
+                      "description": "Categories are found",
+                      "schema":{
+                        "type":"array",
+                        "items":{
+                          "$ref":"#/definitions/Category"
+                        }
+                    }
+                },
+                  "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+          }
+      },
+      "/attributes": {
+        "get": {
+            "tags": [
+                "Attributes"
+            ],
+            "summary": "Get all attributes",
+            "responses": {
+                "200":{
+                    "description": "OK",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties": {
+                                "attribute_id": {
+                                    "type": "integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type":"string",
+                                    "example": "Size"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+      },
+    "/attributes/{attribute_id}": {
+        "parameters":[
+            {
+                "name": "attributes_id",
+                "in": "path",
+                "required": true,
+                "description": "The ID of the attribute."
+            }
+        ],
+        "get": {
+            "tags":[
+                "Attributes"
+            ],
+            "summary":"Get the attribute with the given ID",
+            "responses": {
+                "200":{
+                    "description": "Attribute is found",
+                    "schema":{
+                        "properties":{
+                            "attribute_id": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "name": {
+                                "type":"string",
+                                "example": "Size"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/attributes/inProduct/{product_id}": {
+        "parameters":[
+            {
+                "name": "product_id",
+                "in": "path",
+                "required": true,
+                "description": "The ID of a product."
+            }
+        ],
+        "get": {
+            "tags":[
+                "Attributes"
+            ],
+            "summary":"Get the attributes of a given product",
+            "responses": {
+                "200":{
+                    "description": "Attributes are found",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "attribute_name": {
+                                    "type":"string",
+                                    "example": "Color"
+                                },
+                                "attribute_value_id":{
+                                    "type": "integer",
+                                    "example": 6
+                                },
+                                "attribute_value": {
+                                    "type":"string",
+                                    "example": "White"
+                                }
+                            }                                
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/attributes/values/{attribute_id}": {
+        "parameters":[
+            {
+                "name": "attribute_id",
+                "in": "path",
+                "required": true,
+                "description": "The ID of the attribute."
+            }
+        ],
+        "get": {
+            "tags":[
+                "Attributes"
+            ],
+            "summary":"Get the values from a given attribute",
+            "responses": {
+                "200":{
+                    "description": "Attribute values are found",
+                    "schema":{
+                        "properties":{
+                            "attribute_value_id":{
+                                "type":"integer",
+                                "example": 1
+                            },
+                            "value":{
+                                "type":"string",
+                                "example": "S"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+
+    "/products": {
+        "parameters":[
+            {
+                "name": "page",
+                "type": "integer",
+                "in": "query",
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "limit",
+                "type": "integer",
+                "in": "query",
+                "description": "Number of items per page. Defaults to 20"
+            },
+            {
+                "name": "description_length",
+                "type": "integer",
+                "in": "query",
+                "description": "Max length of description. Defaults to 200"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary": "Get all products",
+            "responses": {
+                "200":{
+                    "description": "Return products with total count",
+                    "schema":{
+                        "properties":{
+                            "count": {
+                                "type": "integer",
+                                "example": 40
+                            },
+                            "rows": {
+                                "type": "array",
+                                "items":{
+                                    "$ref":"#/definitions/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/search": {
+        "parameters":[
+            {
+                "name": "query_string",
+                "type": "string",
+                "in": "query",
+                "required": true,
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "all_words",
+                "type": "string",
+                "in": "query",
+                "required": true,
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "page",
+                "type": "integer",
+                "in": "query",
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "limit",
+                "type": "integer",
+                "in": "query",
+                "description": "Number of items per page. Defaults to 20"
+            },
+            {
+                "name": "description_length",
+                "type": "integer",
+                "in": "query",
+                "description": "Max length of description. Defaults to 200"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary": "Get product search results",
+            "responses": {
+                "200":{
+                    "description": "Return products with total count",
+                    "schema":{
+                        "properties":{
+                            "count": {
+                                "type": "integer",
+                                "example": 40
+                            },
+                            "rows": {
+                                "type": "array",
+                                "items":{
+                                    "$ref":"#/definitions/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/{product_id}": {
+        "parameters":[
+            {
+                "name": "product_id",
+                "type":"integer",
+                "in":"path",
+                "required":true,
+                "description":"The ID of a product."
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get the product with the given ID",
+            "responses":{
+                "200":{
+                    "description":"Returns a Product object",
+                    "schema":{
+                        "properties":{
+                            "product_id": {
+                                "type":"integer",
+                                "example": 2
+                            },
+                            "name":{
+                                "type":"string",
+                                "example": "Test Product"
+                            },
+                            "description": {
+                                "type":"string",
+                                "example":"This is a sample description of a sample product"
+                            },
+                            "price": {
+                                "type":"float",
+                                "example": 12.65
+                            },
+                            "discounted_price": {
+                                "type": "float",
+                                "example": 12.05
+                            },
+                            "image": {
+                                "type":"string",
+                                "example": "sample-product-1.png"
+                            },
+                            "image2": {
+                                "type":"string",
+                                "example": "sample-product-2.png"
+                            },
+                            "thumbnail": {
+                                "type":"string",
+                                "example": "sample-product-thumbnail.png"
+                            }            
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/inCategory/{category_id}": {
+        "parameters":[
+            {
+                "name": "category_id",
+                "type":"integer",
+                "in":"path",
+                "required":true,
+                "description":"The ID of a category."
+            },
+            {
+                "name": "page",
+                "type": "integer",
+                "in": "query",
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "limit",
+                "type": "integer",
+                "in": "query",
+                "description": "Number of items per page. Defaults to 20"
+            },
+            {
+                "name": "description_length",
+                "type": "integer",
+                "in": "query",
+                "description": "Max length of description. Defaults to 200"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get the products in a given category",
+            "responses":{
+                "200":{
+                    "description": "Return products with total count",
+                    "schema":{
+                        "properties":{
+                            "count": {
+                                "type": "integer",
+                                "example": 40
+                            },
+                            "rows": {
+                                "type": "array",
+                                "items":{
+                                    "$ref":"#/definitions/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/inDepartment/{department_id}": {
+        "parameters":[
+            {
+                "name": "department_id",
+                "type":"integer",
+                "in":"path",
+                "required":true,
+                "description":"The ID of a department."
+            },
+            {
+                "name": "page",
+                "type": "integer",
+                "in": "query",
+                "description": "Page number. Defaults to 1"
+            },
+            {
+                "name": "limit",
+                "type": "integer",
+                "in": "query",
+                "description": "Number of items per page. Defaults to 20"
+            },
+            {
+                "name": "description_length",
+                "type": "integer",
+                "in": "query",
+                "description": "Max length of description. Defaults to 200"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get the products in a given category",
+            "responses":{
+                "200":{
+                    "description": "Return products with total count",
+                    "schema":{
+                        "properties":{
+                            "count": {
+                                "type": "integer",
+                                "example": 40
+                            },
+                            "rows": {
+                                "type": "array",
+                                "items":{
+                                    "$ref":"#/definitions/Product"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/{product_id}/details": {
+        "parameters":[
+            {
+                "name": "product_id",
+                "type":"integer",
+                "in":"path",
+                "required":true,
+                "description":"The ID of a product."
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get details of a product",
+            "responses":{
+                "200":{
+                    "description":"Ok",
+                    "schema":{
+                        "properties":{
+                            "product_id": {
+                                "type":"integer",
+                                "example": 2
+                            },
+                            "name":{
+                                "type":"string",
+                                "example": "Test Product"
+                            },
+                            "description": {
+                                "type":"string",
+                                "example":"This is a sample description of a sample product"
+                            },
+                            "price": {
+                                "type":"float",
+                                "example": 12.65
+                            },
+                            "discounted_price": {
+                                "type": "float",
+                                "example": 12.05
+                            },
+                            "image": {
+                                "type":"string",
+                                "example": "sample-product-1.png"
+                            },
+                            "image2": {
+                                "type":"string",
+                                "example": "sample-product-2.png"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/{product_id}/locations": {
+        "parameters":[
+            {
+                "name": "product_id",
+                "type":"integer",
+                "in":"path",
+                "required":true,
+                "description":"The ID of a product."
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get locations of a product",
+            "responses":{
+                "200":{
+                    "description":"Ok",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "category_id":{
+                                    "type":"integer",
+                                    "example": 1
+                                },
+                                "category_name": {
+                                    "type":"string",
+                                    "example": "French"
+                                },
+                                "department_id":{
+                                    "type":"string",
+                                    "example": 1
+                                },
+                                "department_name": {
+                                    "type":"string",
+                                    "example": "Regional"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        }
+    },
+    "/products/{product_id}/reviews": {
+        "parameters":[
+            {
+                "name": "product_id",
+                "type":"integer",
+                "required":true,
+                "in":"path",
+                "description":"The ID of a product."
+            }
+        ],
+        "get":{
+            "tags":[
+                "Products"
+            ],
+            "summary":"Get reviews of a product",
+            "responses":{
+                "200":{
+                    "description":"Ok",
+                    "schema":{
+                        "$ref":"#/definitions/Product"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+          }
+        },
+        "post":{
+            "tags":[
+                "Products"
+            ],
+            "security": {
+                "auth": []
+            },
+            "parameters":[
+                {
+                    "name":"product_id",
+                    "type":"integer",
+                    "in":"path",
+                    "required": true
+                },
+                {
+                    "name": "review",
+                    "type":"string",
+                    "required":true,
+                    "in":"formData"
+                },
+                {
+                    "name": "rating",
+                    "type":"integer",
+                    "required":true,
+                    "in":"formData"
+                }
+            ],
+            "summary": "Post new product review",
+            "responses":{
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+
+    "/customer": {
+        "put":{
+            "parameters":[
+                    {
+                        "name": "name",
+                        "type":"string",
+                        "required":true,
+                        "in":"formData",
+                        "description": "Customer name"
+                    },
+                    {
+                        "name": "email",
+                        "type":"string",
+                        "required":true,
+                        "in":"formData",
+                        "description": "Customer email address"
+                    },
+                    {
+                        "name":"password",
+                        "type":"string",
+                        "in":"formData",
+                        "description": "Customer password"
+                    },
+                    {
+                        "name": "day_phone",
+                        "type":"string",
+                        "in":"formData",
+                        "description": "Customer day phone"
+                    },
+                    {
+                        "name":"eve_phone",
+                        "type":"string",
+                        "in":"formData",
+                        "description": "Customer eve phone"
+                    },
+                    {
+                        "name": "mob_phone",
+                        "type":"string",
+                        "in":"formData",
+                        "description": "Customer mobile phone"
+                    }
+            ],
+            "tags":[
+                "Customers"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Update customer data",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref":"#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        },
+        "get":{
+            "tags":[
+                "Customers"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary":"Get logged in customer data",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref":"#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "/customers": {
+        "parameters":[
+            {
+                "name": "name",
+                "type":"string",
+                "required":true,
+                "in":"formData",
+                "description": "Customer name"
+            },
+            {
+                "name": "email",
+                "type":"string",
+                "required":true,
+                "in":"formData",
+                "description": "Customer email address"
+            },
+            {
+                "name":"password",
+                "type":"string",
+                "required":true,
+                "in":"formData",
+                "description": "Customer password"
+            }
+        ],
+        "post":{
+            "tags":[
+                "Customers"
+            ],
+            "summary": "Register a new customer",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref": "#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/customers/login": {
+        "parameters":[
+            {
+                "name": "email",
+                "type":"string",
+                "required":true,
+                "in":"formData",
+                "description": "Customer email address"
+            },
+            {
+                "name":"password",
+                "type":"string",
+                "required":true,
+                "in":"formData",
+                "description": "Customer password"
+            }
+        ],
+        "post":{
+            "tags":[
+                "Customers"
+            ],
+            "summary": "Customer login",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref": "#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/customers/address": {
+        "parameters":[
+            {
+                "name": "address_1",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "address_2",
+                "type": "string",
+                "in": "formData"
+            },
+            {
+                "name": "city",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "region",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "postal_code",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "country",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "shipping_region_id",
+                "type":"integer",
+                "in":"formData",
+                "required": true
+            }
+        ],
+        "put":{
+            "tags":[
+                "Customers"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Update customer address",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref": "#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "/customers/creditCard": {
+        "parameters":[
+            {
+                "name": "credit_card",
+                "type":"string",
+                "in":"formData",
+                "required": true
+            }
+        ],
+        "put":{
+            "tags":[
+                "Customers"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Update customer credit card",
+            "responses":{
+                "200":{
+                    "description": "Returns Customer object",
+                    "schema":{
+                        "$ref": "#/definitions/Customer"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+
+    "/orders": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type": "integer",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "shipping_id",
+                "type": "integer",
+                "in":"formData",
+                "required": true
+            },
+            {
+                "name": "tax_id",
+                "type": "integer",
+                "in":"formData",
+                "required": true
+            }
+        ],
+        "post":{
+            "tags":[
+                "Orders"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Create an order",
+            "responses":{
+                "200":{
+                    "description":"Returns Order ID",
+                    "schema":{
+                        "properties":{
+                            "orderId": {
+                                "type":"integer",
+                                "example": 1
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "/orders/{order_id}": {
+        "parameters":[
+            {
+                "name": "order_id",
+                "type":"integer",
+                "in":"path",
+                "required": true
+            }
+        ],
+        "get": {
+            "tags":[
+                "Orders"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Get order info",
+            "responses":{
+                "200":{
+                    "description": "Return an Order object",
+                    "schema":{
+                        "$ref": "#/definitions/Order"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "/orders/inCustomer": {
+        "get":{
+            "tags":[
+                "Orders"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Get orders by a customer",
+            "responses":{
+                "200":{
+                    "description":"Returns an array of arders",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/definitions/Order"
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+    "/orders/shortDetail/{order_id}": {
+        "parameters":[
+            {
+                "name": "order_id",
+                "type":"integer",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Orders"
+            ],
+            "security": {
+                "auth": []
+            },
+            "summary": "Get short detail of an order",
+            "responses":{
+                "200":{
+                    "description":"Returns an Order object",
+                    "schema":{
+                        "properties":{
+                            "order_id":{
+                                "type":"integer",
+                                "example": 1
+                            },
+                            "total_amount": {
+                                "type": "float",
+                                "example": 10.50
+                            },
+                            "created_on": {
+                                "type":"string",
+                                "example": ""
+                            },
+                            "shipped_on": {
+                                "type":"string",
+                                "example": ""
+                            },
+                            "status": {
+                                "type":"string",
+                                "example": "paid"
+                            },
+                            "name": {
+                                "type":"string",
+                                "example": "Test"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                },
+                "401":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Unauthorized"
+                    }
+                }
+            }
+        }
+    },
+
+    "/shoppingcart/generateUniqueId": {
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Generates a unique CART ID",
+            "responses":{
+                "200":{
+                    "description":"JSON object with unique Cart ID",
+                    "schema":{
+                        "properties":{
+                            "cart_id": {
+                                "type":"string",
+                                "example": "vs9unsgte13"
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/add": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type":"string",
+                "in":"formData",
+                "required":true
+            },
+            {
+                "name": "product_id",
+                "type":"integer",
+                "in":"formData",
+                "required":true
+            },
+            {
+                "name": "attributes",
+                "type":"string",
+                "in":"formData",
+                "required":true
+            }
+        ],
+        "post":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Add item to cart",
+            "responses":{
+                "200":{
+                    "description":"Returns an array of products in the cart",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/definitions/Cart"
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/{cart_id}": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type":"string",
+                "in":"formData",
+                "required":true
+            }
+        ],
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary":"Get list of products in a cart",
+            "responses":{
+                "200":{
+                    "description": "Returns an array of products in a cart",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/definitions/Cart"
+                        }                        
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/update/{item_id}": {
+        "parameters":[
+            {
+                "name": "item_id",
+                "type": "integer",
+                "required": true,
+                "in":"path"
+            },
+            {
+                "name": "quantity",
+                "type": "integer",
+                "required": true,
+                "in":"formData"
+            }
+        ],
+        "put":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Update the cart by item",
+            "responses":{
+                "200":{
+                    "description": "Returns an array of products in a cart",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/definitions/Cart"
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/empty/{cart_id}": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type": "integer",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "delete":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Empty cart",
+            "responses":{
+                "200":{
+                    "description": "Returns an empty array"
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/moveToCart/{item_id}": {
+        "parameters":[
+            {
+                "name": "item_id",
+                "type": "integer",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Move a product to cart",
+            "responses":{
+                "200":{
+                    "description":"No data"
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }                
+        }
+    },
+    "/shoppingcart/totalAmount/{cart_id}": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type": "string",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Returns the total amount of items in cart",
+            "responses":{
+                "200":{
+                    "description": "Returns the total amount",
+                    "schema":{
+                        "properties":{
+                            "total_amount":{
+                                "type":"float",
+                                "example": 5.95
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/saveForLater/{item_id}": {
+        "parameters":[
+            {
+                "name": "item_id",
+                "type": "integer",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Saves a product for later",
+            "responses":{
+                "200":{
+                    "description":"No data"
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }                
+        }
+    },
+    "/shoppingcart/getSaved/{cart_id}": {
+        "parameters":[
+            {
+                "name": "cart_id",
+                "type": "string",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "get":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Get products saved for later",
+            "responses":{
+                "200":{
+                    "description": "Returns an array of saved items",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "item_id":{
+                                    "type":"integer",
+                                    "example": 1
+                                },
+                                "name": {
+                                    "type":"string",
+                                    "example": "TShirt"
+                                },
+                                "attributes": {
+                                    "type": "string",
+                                    "example": "LG, red"
+                                },
+                                "price": {
+                                    "type": "float",
+                                    "example": 15.90
+                                }
+                            }
+                        }
+                 }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shoppingcart/removeProduct/{item_id}": {
+        "parameters":[
+            {
+                "name": "item_id",
+                "type": "integer",
+                "required": true,
+                "in":"path"
+            }
+        ],
+        "delete":{
+            "tags":[
+                "Shopping Cart"
+            ],
+            "summary": "Removes a product from the cart",
+            "responses":{
+                "200":{
+                    "description":"No data"
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }                
+        }
+    },
+
+    "/tax": {
+        "get": {
+            "tags": [
+                "Tax"
+            ],
+            "summary": "Get all taxes",
+            "responses": {
+                "200":{
+                    "description": "Retuens an array of taxes",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "$ref":"#/definitions/Tax"
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/tax/{tax_id}": {
+        "parameters":[
+            {
+                "name": "tax_id",
+                "in": "path",
+                "required": true,
+                "description": "The ID of the tax."
+            }
+        ],
+        "get": {
+            "tags":[
+                "Tax"
+            ],
+            "summary":"Get the tax with the given ID",
+            "responses": {
+                "200":{
+                    "description": "Tax is found",
+                    "schema":{
+                        "$ref":"#/definitions/Tax"
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+
+    "/shipping/regions": {
+        "get": {
+            "tags": [
+                "Shipping"
+            ],
+            "summary": "Get all shipping regions",
+            "responses": {
+                "200":{
+                    "description": "OK",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "shipping_region_id":{
+                                    "type":"integer",
+                                    "example": 1
+                                },
+                                "shipping_region": {
+                                    "type":"string",
+                                    "example": "Please select"
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+    "/shipping/regions/{shipping_region_id}": {
+        "parameters":[
+            {
+                "name": "shipping_region_id",
+                "in": "path",
+                "required": true,
+                "description": "The ID of the tashipping region."
+            }
+        ],
+        "get": {
+            "tags":[
+                "Shipping"
+            ],
+            "summary":"Get the shippings in a shipping region with the given ID",
+            "responses": {
+                "200":{
+                    "description": "Return a list of Shipping objects",
+                    "schema":{
+                        "type":"array",
+                        "items":{
+                            "properties":{
+                                "shipping_id": {
+                                    "type":"integer",
+                                    "example": 1
+                                },
+                                "shipping_type": {
+                                    "type": "string",
+                                    "example": "Next day delivery ($20)"
+                                },
+                                "shipping_cost": {
+                                    "type": "float",
+                                    "example": 20
+                                },
+                                "shipping_region_id": {
+                                    "type": "integer",
+                                    "example": 2
+                                }
+                            }
+                        }
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    },
+
+    "/stripe/charge": {
+        "parameters":[
+            {
+                "name": "stripeToken",
+                "type": "string",
+                "in":"formData",
+                "required": true,
+                "description": "The Stripe API token"
+            },
+            {
+                "name": "order_id",
+                "type":"integer",
+                "in": "formData",
+                "required": true,
+                "description": "The order ID or the order being paid for"
+            },
+            {
+                "name": "description",
+                "type": "string",
+                "in":"formData",
+                "required": true,
+                "description": "Description of the order"
+            },
+            {
+                "name": "amount",
+                "type":"integer",
+                "in": "formData",
+                "required": true,
+                "description": "Total amount being paid."
+            },
+            {
+                "name": "currency",
+                "type": "string",
+                "in":"formData",
+                "description": "Currency used in payment: Defaults to USD"
+            }
+        ],
+        "post":{
+            "tags":[
+                "Stripe"
+            ],
+            "summary": "This endpoint receives a front-end payment and creates a charge.",
+            "responses":{
+                "200":{
+                    "description": "Object from Stripe",
+                    "schema":{
+                        
+                    }
+                },
+                "400":{
+                    "description": "Return an error object",
+                    "schema":{
+                        "$ref":"#/definitions/Error"
+                    }
+                }
+            }
+        }
+    }
+
+  },
+
+    "definitions": {
+        "Department": {
+            "properties": {
+                "department_id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type":"string"
+                }
+            }
+        },
+        "Category": {
+            "properties": {
+                "category_id": {
+                    "type": "integer",
+                    "uniqueItems": true
+                },
+                "name": {
+                    "type": "string"
+                },
+                "description": {
+                    "type":"string"
+                }
+            }
+        },
+        "Product": {
+            "properties":{
+                "product_id": {
+                    "type":"integer",
+                    "example": 2
+                },
+                "name":{
+                    "type":"string",
+                    "example": "Test Product"
+                },
+                "description": {
+                    "type":"string",
+                    "example":"This is a sample description of a sample product"
+                },
+                "price": {
+                    "type":"float",
+                    "example": 12.65
+                },
+                "discounted_price": {
+                    "type": "float",
+                    "example": 12.05
+                },
+                "thumbnail": {
+                    "type":"string",
+                    "example": "sample-product.png"
+                }
+            }
+        },
+        "Customer": {
+            "properties": {
+                "customer_id": {
+                    "type":"integer",
+                    "example": 1
+                },
+                "name": {
+                    "type":"string",
+                    "example": "Bilbo Bagins"
+                },
+                "email":{
+                    "type":"string",
+                    "example": "bilbo@hotmail.com"
+                },
+                "address_1": {
+                    "type":"string",
+                    "example": "Q1 19"
+                },
+                "address_2": {
+                    "type":"string",
+                    "example": ""
+                },
+                "city": {
+                    "type":"string",
+                    "example": ""
+                },
+                "region": {
+                    "type":"string",
+                    "example": ""
+                },
+                "postal_code": {
+                    "type":"string",
+                    "example": ""
+                },
+                "country": {
+                    "type":"string",
+                    "example": ""
+                },
+                "shipping_region_id": {
+                    "type":"integer",
+                    "example": 1
+                },
+                "day_phone": {
+                    "type":"string",
+                    "example": "+35374384374734734"
+                },
+                "eve_phone": {
+                    "type":"string",
+                    "example": "+45293029392902032"
+                },
+                "mob_phone": {
+                    "type":"string",
+                    "example": "+34343032723882838"
+                },
+                "credit_card": {
+                    "type":"string",
+                    "example": "XXXXXXXXXX5100"
+                }
+            }
+        },
+        "Order": {
+            "properties":{
+                "order_id": {
+                    "type":"integer",
+                    "example": 1
+                },
+                "product_id": {
+                    "type":"integer",
+                    "example": 1
+                },
+                "attributes": {
+                    "type":"string",
+                    "example": "LG, Red"
+                },
+                "product_name": {
+                    "type":"string",
+                    "example": "Arc d'Triomphe"
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "unit_cost": {
+                    "type":"float",
+                    "example": 14.99
+                },
+                "subtotal": {
+                    "type": "float",
+                    "example": 14.99
+                }
+            }
+        },
+        "Cart": {
+            "properties":{
+                "item_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Arc d'Triomphe"
+                },
+                "attributes": {
+                    "type": "string",
+                    "example": "LG, red"
+                },
+                "product_id": {
+                    "type": "integer",
+                    "example": 2
+                },
+                "price": {
+                    "type": "float",
+                    "example": 14.99
+                },
+                "quantity": {
+                    "type": "integer",
+                    "example": 1
+                },
+                "image": {
+                    "type": "string",
+                    "example": "arc-d-triomphe.gif"
+                },
+                "subtotal": {
+                    "type": "float",
+                    "example": 14.99
+                }
+            }
+        },
+        "Tax": {
+            "properties": {
+                "tax_id": {
+                    "type":"integer",
+                    "example": 1
+                },
+                "tax_type": {
+                    "type": "string",
+                    "example": "Sales Tax as 8.5%"
+                },
+                "tax_percentage": {
+                    "type": "float",
+                    "example": 8.50
+                }
+            }
+        },
+        "Error": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "USR_02"
+                },
+                "message": {
+                    "type":"string",
+                    "example": "The field example is empty"
+                },
+                "field": {
+                    "type":"string",
+                    "example": "example"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 400
+                }
+            }
+        },
+        "Unauthorized": {
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "USR_02"
+                },
+                "message": {
+                    "type":"string",
+                    "example": "Missing api key"
+                },
+                "field": {
+                    "type":"string",
+                    "example": "example"
+                },
+                "status": {
+                    "type": "integer",
+                    "example": 401
+                }
+            }
+        }
+    }
+  }
+  

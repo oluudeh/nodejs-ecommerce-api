@@ -37,7 +37,8 @@ const OrderController = {
             )
 
             //Send a confirmation email notification
-            helper.sendMail(req.user.email, 'new_order')
+            //helper.sendMail(req.user.email, 'new_order')
+            await helper.sendOrderMail(req.user.email, orderId[0])
 
             return res.send(orderId[0])
         } catch (err) {

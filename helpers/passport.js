@@ -51,11 +51,11 @@ passport.use('login', new LocalStrategy({
 
 
 const keyExtractor = (req) => {
-    //console.log('Headers', req.headers)
+    console.log('Headers', req.headers)
     let token = req.headers['user-key']
     if (token) {
         const frags = token.split(' ')
-        if (frags.length == 2 && frags[0] === 'Bearer') {
+        if (frags.length === 2 && frags[0] === 'Bearer') {
             token = frags[1]
         }
     }

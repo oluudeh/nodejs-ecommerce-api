@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const passport = require('passport')
 const helmet = require('helmet')
 const cors = require('cors')
+const swaggerUi = require('swagger-ui-express')
+const swaggerDoc = require('./swagger.json')
 
 require('dotenv').config()
 
@@ -25,6 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use(cors())
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc))
+//app.use('/api/v1', )
 
 const routes = require('./routes');
 /*app.get('*', (req, res) => res.status(200).send({

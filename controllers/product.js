@@ -1,6 +1,8 @@
 const db = require('../models')
 const Product = db.sequelize.models.Product
+const Category = db.sequelize.models.Category
 const Review = db.sequelize.models.Review
+const ProductCategory = db.sequelize.models.ProductCategory
 const validator = require('../validations/product')
 
 
@@ -81,8 +83,17 @@ const ProductController = {
             return res.status(400).send(error)
         }
 
+        const prepareString = (str) => {
+            const words = str.split(' ')
+            if (words.length > 1) {
+                return words.map(word => word.trim()).join('* ')
+            } else {
+                return str.trim().concat('*')
+            }
+        }
+
         try {
-            const query = req.query.query_string
+            const query = prepareString(req.query.query_string)
             const allWords = req.query.all_words || 'on'
             const page = req.query.page || 1
             const limit = parseInt(req.query.limit) || 20
@@ -100,6 +111,7 @@ const ProductController = {
                         inAllWords: allWords
                     }
                 })
+            
 
             const products = await db.sequelize.query(
                 `CALL catalog_search (
@@ -118,6 +130,8 @@ const ProductController = {
                         inStartItem: offset
                     }
                 })
+
+                console.log( 'QUery', query)
 
             return res.send({
                 count: count[0]['count(*)'],
@@ -146,6 +160,15 @@ const ProductController = {
             const offset = (page * limit) - limit
             const desc_length = parseInt(req.query.description_length) || 200
 
+            const count = await Product.count({
+                include: [{
+                    model: ProductCategory,
+                    where: {
+                        'category_id': req.params.category_id
+                    }
+                }]
+            })
+
             const products = await db.sequelize.query(
                 `CALL catalog_get_products_in_category (
                     :inCategoryId,
@@ -161,7 +184,10 @@ const ProductController = {
                         inStartItem: offset
                     }
                 })
-            return res.send(products)
+            return res.send({
+                count: count,
+                rows: products
+            })
         } catch(err) {
             console.log(err)
             return res.status(500).send(err)
@@ -186,6 +212,20 @@ const ProductController = {
             const offset = (page * limit) - limit
             const desc_length = parseInt(req.query.description_length) || 200
 
+            const sql = `SELECT COUNT( * ) as count
+                        FROM product p
+                        INNER JOIN product_category pc
+                        ON p.product_id = pc.product_id
+                        INNER JOIN category c
+                        ON pc.category_id = c.category_id
+                        WHERE (p.display = 2 OR p.display = 3)
+                        AND c.department_id = :deptId`
+
+            const count = await db.sequelize.query(sql, {
+                            type: db.sequelize.QueryTypes.SELECT,
+                            replacements: { deptId: req.params.department_id }
+                        })
+            
             const products = await db.sequelize.query(
                 `CALL catalog_get_products_on_department (
                     :inDepartmentId,
@@ -201,7 +241,10 @@ const ProductController = {
                         inStartItem: offset
                     }
                 })
-            return res.send(products)
+            return res.send({
+                ...count[0],
+                rows: products
+            })
         } catch(err) {
             console.log(err)
             return res.status(500).send(err)

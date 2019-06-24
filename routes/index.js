@@ -28,3 +28,13 @@ router.get('/', (req, res) => {
 } )
 
 module.exports = router
+
+/*
+$.ajax({
+    method: 'GET',
+    url: '/get-passport-Faq'  + origin_id,
+    success: function (result) {
+        $('#passport-Faq').text(result);
+        console.log("Result", result)
+    }
+})*/

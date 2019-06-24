@@ -416,7 +416,7 @@ BEGIN
     INNER JOIN product_category pc
                  ON p.product_id = pc.product_id
     WHERE      pc.category_id = ?
-    ORDER BY   p.display DESC
+    ORDER BY   p.product_id
     LIMIT      ?, ?";
 
   -- Define query parameters
@@ -462,7 +462,7 @@ BEGIN
                        ON pc.category_id = c.category_id
      WHERE           (p.display = 2 OR p.display = 3)
                      AND c.department_id = ?
-     ORDER BY        p.display DESC
+     ORDER BY        p.product_id
      LIMIT           ?, ?";
 
   SET @p1 = inShortProductDescriptionLength;
@@ -521,7 +521,7 @@ BEGIN
                         '...')) AS description,
               price, discounted_price, thumbnail
      FROM     product
-     ORDER BY display DESC
+     ORDER BY product_id
      LIMIT    ?, ?";
 
   SET @p1 = inShortProductDescriptionLength;

@@ -26,8 +26,11 @@ module.exports = (sequelize, DataTypes) => {
       }
     ]
   });
+
+  
   Product.associate = function(models) {
-    // associations can be defined here
+    Product.belongsTo(models.Category, { through: 'ProjectCategory' })
+    Product.belongsTo(models.ProductCategory, { foreignKey: 'product_id', targetKey: 'product_id' })
   };
   return Product;
 };
